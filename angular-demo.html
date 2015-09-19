@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Angular poc</title>   
+
+    <style>
+    .container p{margin:0; padding: 15px 0 5px;}
+    .alert{border:1px solid blue; color: goldenrod; padding: 20px; margin: 10px}
+    .danger{ border:1px solid red; color: goldenrod; padding: 20px; margin: 10px}
+    </style>                  
+</head>
+
+<body>
+<!--
+<code>Angular example 1</code>
+<div ng-app="invoice1">
+    <div class="container" ng-app ng-init="qty=1;cost=12">        
+        <div>
+            <p>Quantity </p>
+            <input type="text" ng-model="qty">
+        </div>
+        <div>
+            <p>Cost </p>
+            <input type="text" ng-model="cost">
+        </div>
+        <div>
+            <p class="md-label">Total {{qty*cost | currency}}</p>    
+        </div>
+    </div>
+</div>
+-->
+
+<br>
+<!--
+<code>Angular example 2</code>
+<div ng-app>
+    <p>{{hello}}</p>
+    <input type="text" ng-model="hello">
+</div>
+-->
+<!--
+<div ng-app>
+
+  <input type="text" ng-model="first.greeting">
+  {{"Hello"}} {{first.greeting}}  
+  
+
+  <input type="text" ng-model="first.greeting">
+  <div ng-class="first.greeting">    
+      {{"Hello"}} {{first.greeting}}
+  </div>
+
+</div>
+-->
+<div ng-app="app">
+    <div ng-controller="FirstCtrl as first">
+        <input type="text" ng-model="first.greeting">
+        <div ng-class="first.greeting">    
+          {{"Hello"}} {{first.greeting}}
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script>
+(function(angular) {
+    'use strict';
+    angular.module("app", [])
+        .controller("FirstCtrl", function FirstCtrl(){
+        var first = this;
+        first.greeting = "First";
+    })  
+})(window.angular);
+    
+</script>
+</body>
+</html>

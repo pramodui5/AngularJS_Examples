@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+    <title>Angular poc</title>    
+    
+    <style>
+    .md-label{
+        width: 100px;
+        display: inline-block;
+    }
+    </style>
+</head>
+<!--
+<body ng-app>
+<pre>Example</pre>
+<pre>*********************************************************</pre>
+<h2>Invoice</h2>
+<p><label class="md-label">Quantity </label><input type="text" ng-model="qty"></p>
+<p><label class="md-label">Cost </label><input type="text" ng-model="price"></p>
+<p><label class="md-label">Total </label>{{qty*price | currency}}</p>
+<pre>*********************************************************</pre>
+</body>
+-->
+
+<body>
+<pre>Example</pre>
+<pre>*********************************************************</pre>
+
+
+
+<div ng-app="invoice1" ng-controller="InvoiceController as invoice">
+  <b>Invoice:</b>
+  <div>
+    Quantity: <input type="number" min="0" ng-model="invoice.qty" required >
+  </div>
+  <div>
+    Costs: <input type="number" min="0" ng-model="invoice.cost" required >
+    <select ng-model="invoice.inCurr">
+      <option ng-repeat="c in invoice.currencies">{{c}}</option>
+    </select>
+  </div>
+  <div>
+    <b>Total:</b>
+    <span ng-repeat="c in invoice.currencies">
+      {{invoice.total(c) | currency:c}}
+    </span>
+    <button class="btn" ng-click="invoice.pay()">Pay</button>
+  </div>
+</div>
+
+
+
+<pre>*********************************************************</pre>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+<script src="js/invoice1.js"></script>
+</body>
+</html>
