@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Updating a span when input text changes using jQuery</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+<pre>Example 5</pre>
+<p>DIY One-way Data Binding with jQuery</p>
+
+Name:<input id="textInput" type="text"/><br>
+Hello <span id="nameDiv"></span>!
+
+<script>
+    $('#textInput').on('keyup', function(){
+        $('#nameDiv').html($('#textInput').val());
+    });
+</script>
+
+
+</body>
+</html>
