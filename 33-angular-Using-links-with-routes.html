@@ -1,7 +1,7 @@
 <html ng-app="countryApp">
 <head>
     <meta charset="utf-8">
-    <title>Getting started with routing using ngRoute</title>
+    <title>Using links with routes for navigation between views</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
     <script>
@@ -9,12 +9,12 @@
         countryApp.config(function($routeProvider){
             $routeProvider.
                 when('/',{
-                    template: '<ul><li ng-repeat="country in countries">{{country.name}}</li><ul>',
-                    controller: 'CountryListCtrl'
+                        templateUrl: 'country-list.html',
+                        controller: 'CountryListCtrl'
                 }).
                 when('/:countryName', {
-                    template: '<h1>TODO create country detail view</h1>',
-                    controller: 'CountryDetailCtrl'
+                        templateUrl: 'country-detail.html',
+                        controller: 'CountryDetailCtrl'
                 }).
                 otherwise({
                     redirectTo: '/'
@@ -28,14 +28,13 @@
         });
 
         countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams){
-            console.log($routeParams);
+            $scope.name = $routeParams.countryName;
         });
+
     </script>
 </head>
 <body>
-
     <div ng-view></div>
-
 </body>
 </body>
 </html>
