@@ -1,7 +1,7 @@
 <html ng-app="countryApp">
 <head>
     <meta charset="utf-8">
-    <title>Caching JSON data in a service.</title>
+    <title>Simulating a RESTful service by splitting the JSON data across files.</title>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.10/angular-route.min.js"></script>
     <script>
@@ -10,11 +10,11 @@
         countryApp.config(function($routeProvider){
             $routeProvider.
                 when('/',{
-                        templateUrl: 'country-list2.html',
+                        templateUrl: 'country-list4.html',
                         controller: 'CountryListCtrl'
                 }).
-                when('/:countryName', {
-                        templateUrl: 'country-detail2.html',
+                when('/:countryId', {
+                        templateUrl: 'country-detail3.html',
                         controller: 'CountryDetailCtrl'
                 }).
                 otherwise({
@@ -23,26 +23,22 @@
         });
 
         countryApp.factory('countries', function($http){
-            var cachedData;
-            function getData(callback){
-                if(cachedData) {
-                    callback(cachedData);
-                } else {
-                    $http.get('countries.json').success(function(data){
-                        cachedData = data;
-                        callback(data);
-                    });
-                }
-            }
+
+
             return{
-                list: getData,
-                find: function(name, callback){
-                    getData(function(data) {
-                        var country = data.filter(function(entry){
-                            return entry.name === name;
-                        })[0];
-                        callback(country);
-                    });
+                list: function(callback){
+                    $http({
+                        method: 'GET',
+                        url: 'countries-by-id.json',
+                        cache: true
+                    }).success(callback);
+                },
+                find: function(id, callback){
+                    $http({
+                        method: 'GET',
+                        url: 'country_' + id + '.json',
+                        cache: true
+                    }).success(callback);
                 }
             };
         });
@@ -54,10 +50,11 @@
         });
 
         countryApp.controller('CountryDetailCtrl', function ($scope, $routeParams, countries){
-            countries.find($routeParams.countryName, function(country) {
+            countries.find($routeParams.countryId, function(country) {
                 $scope.country = country;
             });
         });
+
 
     </script>
 </head>
